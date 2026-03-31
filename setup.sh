@@ -3,7 +3,6 @@ set -euo pipefail
 
 SOUNDFONT_DIR="soundfonts"
 SOUNDFONT_FILE="$SOUNDFONT_DIR/FluidR3_GM.sf2"
-SOUNDFONT_URL="https://keymusician01.s3.amazonaws.com/FluidR3_GM.zip"
 
 if [ -f "$SOUNDFONT_FILE" ]; then
     echo "Soundfont already exists at $SOUNDFONT_FILE"
@@ -11,8 +10,11 @@ if [ -f "$SOUNDFONT_FILE" ]; then
 fi
 
 mkdir -p "$SOUNDFONT_DIR"
-echo "Downloading FluidR3_GM soundfont..."
-curl -L -o "$SOUNDFONT_DIR/FluidR3_GM.zip" "$SOUNDFONT_URL"
-unzip -o "$SOUNDFONT_DIR/FluidR3_GM.zip" -d "$SOUNDFONT_DIR"
-rm "$SOUNDFONT_DIR/FluidR3_GM.zip"
+
+# Download SGM (Shan's GM Soundfont) from Internet Archive — good quality, 236MB
+echo "Downloading SGM-V2.01 soundfont from Internet Archive..."
+TMPDIR=$(mktemp -d)
+ia download "SGM-V2.01" "SGM-V2.01.sf2" --destdir="$TMPDIR"
+cp "$TMPDIR/SGM-V2.01/SGM-V2.01.sf2" "$SOUNDFONT_FILE"
+rm -rf "$TMPDIR"
 echo "Soundfont installed at $SOUNDFONT_FILE"
