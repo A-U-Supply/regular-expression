@@ -1,7 +1,6 @@
 soundfonts/
-midi_output/*.mid
-wav_output/*.wav
 __pycache__/
 *.pyc
 .venv/
 *.egg-info/
+wav_output/regular_expression.wav
